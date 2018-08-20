@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content%}
+
+  <h2> {{genre.name}} </h2>
+
+  <ol>
+    {% for book in books %}
+    <li> {{book.name}} </li>
+    {% endfor %}
+  </ol>
+
+{% endblock %}

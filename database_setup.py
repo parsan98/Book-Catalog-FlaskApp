@@ -23,14 +23,14 @@ class Genre(Base):
     #Columns of Genre
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
-    description = Column(String(250))
+    icon = Column(String(250))
 
     @property
     def serialize(self):
         return {
             'id' : self.id,
             'name' : self.name,
-            'description' : self.description
+            'icon' : self.icon
         }
 
 
