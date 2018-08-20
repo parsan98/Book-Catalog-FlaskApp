@@ -29,7 +29,8 @@ class Genre(Base):
     def serialize(self):
         return {
             'id' : self.id,
-            'name' : self.name
+            'name' : self.name,
+            'description' : self.description
         }
 
 
