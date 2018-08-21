@@ -6,6 +6,16 @@
 <body>
 
   <header>
+    <img src="http://tienganh247.com.vn/wp-content/uploads/2016/07/tai-lieu-ngu-phap-tieng-anh-khong-the-thieu.jpg"
+         width=300px
+         height=300px
+         alt="Books image">
+    <h1> A Catalog of Books </h1>
+    <nav>
+      <a> Login </a>
+      <a> Logout </a>
+      <a href="{{url_for('addBook')}}"> Add a book </a>
+    </nav>
   </header>
 
   <div id="content">
@@ -14,6 +24,11 @@
   </div>
 
   <footer>
+    <hr>
+    &copy; Copyright
+      <script>
+        document.write(new Date().getFullYear());
+      </script>
   </footer>
 
 </body>

@@ -1,6 +1,17 @@
 {% extends "base.html" %}
 {% block content%}
 
-  <p> here will be the form to delete a book </p>
+  <h2> Delete this book? </h2>
+
+  <form name="deleteBook">
+
+    <p> Are you sure you want to delete <b>{{ book.name }} </b> by {{ book.author}} ?</p>
+
+    <p> <u>Description:</u> {{ book.description }} </p>
+
+    <img src={{book.cover}} alt={{book.name}} width=200px height=300px>
+    <br>
+    <button type="button" onclick="location.href='/book/{{book.id}}'"> Cancel </button>
+    <button type="submit"> Delete </button>
 
 {% endblock %}

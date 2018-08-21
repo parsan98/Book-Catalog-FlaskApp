@@ -1,6 +1,46 @@
 {% extends "base.html" %}
 {% block content%}
 
-  <p> here will be the form to create a book </p>
+  <h2> Add a new book </h2>
+  <form name="createBook">
 
+    <label> Title: </label>
+    <input name="name"
+           type="text"
+           required>
+    <br>
+
+    <label> Author: </label>
+    <input name="author"
+           type="text"
+           required>
+    <br>
+
+    <label> Cover Image URL: </label>
+    <input name="cover"
+           type="url"
+           required>
+    <br>
+
+    <label> Genre: </label>
+    <input name="genre" type="radio" value="1"> Fantasy <br>
+    <input name="genre" type="radio" value="2"> Science Fiction <br>
+    <input name="genre" type="radio" value="3" checked> Classics <br>
+    <input name="genre" type="radio" value="4"> Humor <br>
+    <input name="genre" type="radio" value="5"> Mystery <br>
+    <input name="genre" type="radio" value="6"> Biography <br>
+    <input name="genre" type="radio" value="7"> Self Help <br>
+    <br>
+
+    <label> Description: </label>
+    <textarea name="description"
+          maxlength="250"
+          columns="50"
+          rows="5"></textarea>
+    <br>
+
+    <button type="button" onclick="location.href='/'"> Cancel </button>
+    <button type="submit"> Submit </button>
+
+  </form>
 {% endblock %}

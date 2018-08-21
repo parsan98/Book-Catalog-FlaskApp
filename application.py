@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, User, Genre, Book
@@ -40,19 +40,27 @@ def addBook():
 @app.route('/book/<int:book_id>/')
 def showBook(book_id):
     #return "This page will display details of book %s" %book_id
-    return render_template('book.html')
+    book = session.query(Book).filter_by(id=book_id).one()
+    genre = session.query(Genre).filter_by(id=book.genre_id).one()
+    creator = session.query(User).filter_by(id=book.user_id).one()
+    return render_template('book.html', book=book, genre=genre, creator=creator)
 
 
 @app.route('/book/<int:book_id>/edit/')
 def editBook(book_id):
     #return "This page will provide a form to edit details of book %s" %book_id
-    return render_template('editBook.html')
+    book = session.query(Book).filter_by(id=book_id).one()
+    genre = session.query(Genre).filter_by(id=book.genre_id).one()
+    creator = session.query(User).filter_by(id=book.user_id).one()
+    return render_template('editBook.html', book=book, genre=genre, creator=creator)
 
 
 @app.route('/book/<int:book_id>/delete/')
 def deleteBook(book_id):
     #return "This page will provide a form to confirm deletion of book %s" %book_id
-    return render_template('deleteBook.html')
+    book = session.query(Book).filter_by(id=book_id).one()
+    creator = session.query(User).filter_by(id=book.user_id).one()
+    return render_template('deleteBook.html', book=book, creator=creator)
 
 
 

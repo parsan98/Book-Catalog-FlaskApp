@@ -3,7 +3,7 @@
 
   <ol>
     {% for genre in genres %}
-    <li> {{genre.name}} </li>
+    <li> <a href="{{url_for('showGenreItems', genre_id=genre.id)}}"> {{genre.name}} </a> </li>
     {% endfor %}
   </ol>
 

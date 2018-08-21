@@ -1,6 +1,72 @@
 {% extends "base.html" %}
 {% block content%}
 
-  <p> here will be the form to edit a book </p>
+  <h2> Add a new book </h2>
+  <form name="updateBook">
+
+    <label> Title: </label>
+    <input name="name"
+           type="text"
+           value="{{book.name}}"
+           required>
+    <br>
+
+    <label> Author: </label>
+    <input name="author"
+           type="text"
+           value="{{book.author}}"
+           required>
+    <br>
+
+    <label> Cover Image URL: </label>
+    <input name="cover"
+           type="url"
+           value="{{book.cover}}"
+           required>
+    <br>
+
+    <label> Genre: </label>
+    <input name="genre"
+           type="radio"
+           value="1"
+            {% if (genre.id==1) %} checked {% endif %}> Fantasy <br>
+    <input name="genre"
+           type="radio"
+           value="2"
+            {% if (genre.id==2) %} checked {% endif %}> Science Fiction <br>
+    <input name="genre"
+           type="radio"
+           value="3"
+           {% if (genre.id==3) %} checked {% endif %}> Classics <br>
+    <input name="genre"
+           type="radio"
+           value="4"
+           {% if (genre.id==4) %} checked {% endif %}> Humor <br>
+    <input name="genre"
+           type="radio"
+           value="5"
+           {% if (genre.id==5) %} checked {% endif %}> Mystery <br>
+    <input name="genre"
+           type="radio"
+           value="6"
+            {% if (genre.id==6) %} checked {% endif %}> Biography <br>
+    <input name="genre"
+           type="radio"
+           value="7"
+            {% if (genre.id==7) %} checked {% endif %}> Self Help <br>
+    <br>
+
+    <label> Description: </label>
+    <textarea name="description"
+          maxlength="250"
+          columns="50"
+          rows="5">{{book.description}}</textarea>
+    <br>
+
+    <button type="button" onclick="location.href='/book/{{book.id}}'"> Cancel </button>
+    <button type="reset"> Reset </button>
+    <button type="submit"> Update </button>
+
+  </form>
 
 {% endblock %}
