@@ -3,7 +3,9 @@
 
   <ol>
     {% for genre in genres %}
-    <li> <a href="{{url_for('showGenreItems', genre_id=genre.id)}}"> {{genre.name}} </a> </li>
+    <li> <img src="{{genre.icon}}" alt="{{genre.name}}" width="100px" height="100px"><br>
+      <a href="{{url_for('showGenreItems', genre_id=genre.id)}}"> {{genre.name}} </a>
+    </li>
     {% endfor %}
   </ol>
 
