@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, User, Genre, Book
@@ -88,6 +88,25 @@ def deleteBook(book_id):
     else:
         return render_template('deleteBook.html', book=book, creator=creator)
 
+
+#JSON API Endpoints
+
+@app.route('/JSON/')
+@app.route('/genre/JSON/')
+@app.route('/book/JSON/')
+def showAllGenresJSON():
+    genres = session.query(Genre).order_by(Genre.name)
+    return jsonify(genres=[x.serialize for x in genres])
+
+@app.route('/genre/<int:genre_id>/JSON/')
+def showGenreItemsJSON(genre_id):
+    books = session.query(Book).filter_by(genre_id=genre_id)
+    return jsonify(books=[x.serialize for x in books])
+
+@app.route('/book/<int:book_id>/JSON/')
+def showGenreItemsJSON(book_id):
+    book = session.query(Book).filter_by(id=book_id).one()
+    return jsonify(book=book.serialize)
 
 
 if __name__ == '__main__':
