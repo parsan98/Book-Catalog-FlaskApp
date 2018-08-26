@@ -22,7 +22,7 @@ This is a web application with CRUD functions which uses Google Oauth2 Login for
   
   ```
 
-* You can either use your Linux system or you can download the vagrant configuration provided here:  
+* You can either use your Linux system or you can download the vagrant configuration provided here:  <https://github.com/udacity/fullstack-nanodegree-vm>
 
 ## Getting started
 
