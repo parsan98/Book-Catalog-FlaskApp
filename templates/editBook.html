@@ -6,6 +6,7 @@
 
     <label> Title: </label>
     <input name="name"
+           maxlength="64"
            type="text"
            value="{{book.name}}"
            required>
@@ -13,6 +14,7 @@
 
     <label> Author: </label>
     <input name="author"
+           maxlength="64"
            type="text"
            value="{{book.author}}"
            required>
@@ -58,7 +60,7 @@
 
     <label> Description: </label>
     <textarea name="description"
-          maxlength="250"
+          maxlength="1020"
           columns="50"
           rows="5">{{book.description}}</textarea>
     <br>

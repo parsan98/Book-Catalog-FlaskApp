@@ -22,7 +22,7 @@ APPLICATION_NAME = "Catalog"
 def showLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
     login_session['state'] = state
-    return render_template('login.html', STATE=state)
+    return render_template('login.html', private=False, STATE=state)
 
 # Connect
 @app.route('/gconnect', methods=['POST'])
@@ -103,14 +103,7 @@ def gconnect():
         user_id = createUser(login_session)
     login_session['user_id'] = user_id
 
-    output = ''
-    output += '<h1>Welcome, '
-    output += login_session['username']
-    output += '!</h1>'
-    output += '<img src="'
-    output += login_session['picture']
-    output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
-    return output
+    return render_template('loginResult.html', userName=login_session['username'], picture=login_session['picture'])
 
 
 # User helper functions
@@ -170,7 +163,10 @@ def gdisconnect():
 def showAllGenres():
     #return "This page will show list of all my genres"
     genres = session.query(Genre).order_by(Genre.name)
-    return render_template('allGenres.html', genres=genres)
+    if 'username' not in login_session:
+        return render_template('allGenres.html', genres=genres, private=False)
+    else:
+        return render_template('allGenres.html', genres=genres, private=True)
 
 
 @app.route('/genre/<int:genre_id>/')
@@ -178,7 +174,10 @@ def showGenreItems(genre_id):
     #return "This page will display all books in genre %s" %genre_id
     genre = session.query(Genre).filter_by(id=genre_id).one()
     books = session.query(Book).filter_by(genre_id=genre_id).all()
-    return render_template('allBooks.html', genre=genre, books=books)
+    if 'username' not in login_session:
+        return render_template('allBooks.html', genre=genre, books=books, private=False)
+    else:
+        return render_template('allBooks.html', genre=genre, books=books, private=True)
 
 
 @app.route('/book/<int:book_id>/')
@@ -187,15 +186,23 @@ def showBook(book_id):
     book = session.query(Book).filter_by(id=book_id).one()
     genre = session.query(Genre).filter_by(id=book.genre_id).one()
     creator = session.query(User).filter_by(id=book.user_id).one()
-    return render_template('book.html', book=book, genre=genre, creator=creator)
+    if 'username' not in login_session:
+        return render_template('book.html', book=book, genre=genre, creator=creator, private=False, isCreator=False)
+    else:
+        if (login_session['username'] == creator.name):
+            return render_template('book.html', book=book, genre=genre, creator=creator, private=True, isCreator=true)
+        else:
+            return render_template('book.html', book=book, genre=genre, creator=creator, private=True, isCreator=false)
 
 
 @app.route('/book/new/', methods=['GET', 'POST'])
 def addBook():
     #return "This page will provide a form to add new books"
+    if 'username' not in login_session:
+        return redirect(url_for('showLogin', private=False))
     if request.method == 'POST':
         genre = session.query(Genre).filter_by(id=request.form['genre']).one()
-        user = session.query(User).filter_by(id=1).one()
+        user = session.query(User).filter_by(id=login_session['user_id']).one()
         description = '{}'.format(request.form['description'])
         book = Book(name=request.form['name'],
                         author=request.form['author'],
@@ -205,9 +212,9 @@ def addBook():
                         user=user)
         session.add(book)
         session.commit()
-        return redirect(url_for('showGenreItems', genre_id=genre.id))
+        return redirect(url_for('showGenreItems', genre_id=genre.id, private=True))
     else:
-        return render_template('createBook.html')
+        return render_template('createBook.html', private=True)
 
 
 @app.route('/book/<int:book_id>/edit/', methods=['GET', 'POST'])
@@ -216,15 +223,19 @@ def editBook(book_id):
     book = session.query(Book).filter_by(id=book_id).one()
     genre = session.query(Genre).filter_by(id=book.genre_id).one()
     creator = session.query(User).filter_by(id=book.user_id).one()
+    if 'username' not in login_session:
+        return redirect(url_for('showLogin', private=False))
+    if book.user_id != login_session['user_id']:
+        return redirect(url_for('showBook', private=True))
     if request.method == 'POST':
         book.name = request.form['name']
         book.author = request.form['author']
         book.description = '{}'.format(request.form['description'])
         book.genre = session.query(Genre).filter_by(id=request.form['genre']).one()
         book.cover = request.form['cover']
-        return redirect(url_for('showBook', book_id=book.id))
+        return redirect(url_for('showBook', book_id=book.id, private=True))
     else:
-        return render_template('editBook.html', book=book, genre=genre, creator=creator)
+        return render_template('editBook.html', book=book, genre=genre, creator=creator, private=True)
 
 
 @app.route('/book/<int:book_id>/delete/', methods=['GET', 'POST'])
@@ -232,13 +243,17 @@ def deleteBook(book_id):
     #return "This page will provide a form to confirm deletion of book %s" %book_id
     book = session.query(Book).filter_by(id=book_id).one()
     creator = session.query(User).filter_by(id=book.user_id).one()
+    if 'username' not in login_session:
+        return redirect(url_for('showLogin', private=False))
+    if book.user_id != login_session['user_id']:
+        return redirect(url_for('showBook', private=True))
     if request.method == 'POST':
         # Delete function
         session.delete(book)
         session.commit()
-        return redirect(url_for('showAllGenres'))
+        return redirect(url_for('showAllGenres', private=True))
     else:
-        return render_template('deleteBook.html', book=book, creator=creator)
+        return render_template('deleteBook.html', book=book, creator=creator, private=True)
 
 
 

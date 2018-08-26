@@ -3,12 +3,16 @@
 
   <h2> {{genre.name}} </h2>
 
-  <img src={{genre.icon}} alt={{genre.name}} width=200px height=300px>
+  <img class="icon small" src={{genre.icon}} alt={{genre.name}}>
 
-  <ol>
+  <ol class="list">
     {% for book in books %}
-    <li> <img src="{{book.cover}}" alt="{{book.name}}" width=200px height=300px><br>
-      <a href="{{url_for('showBook', book_id=book.id)}}"> {{book.name}} </a> </li>
+    <li class="list-item">
+      <a class="item-link" href="{{url_for('showBook', book_id=book.id)}}"> 
+      <img class="book-cover" src="{{book.cover}}" alt="{{book.name}}"><br>
+      {{book.name}} </a>
+      <br> {{book.author}}
+    </li>
     {% endfor %}
   </ol>
 

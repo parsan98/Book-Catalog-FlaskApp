@@ -11,7 +11,7 @@ class User(Base):
 
     #Columns of User
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
+    name = Column(String(64), nullable=False)
     email = Column(String(250), nullable=False)
     picture = Column(String(250))
 
@@ -31,7 +31,7 @@ class Genre(Base):
 
     #Columns of Genre
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
+    name = Column(String(32), nullable=False)
     icon = Column(String(250))
 
     @property
@@ -49,9 +49,9 @@ class Book(Base):
 
     #Columns of Books
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
-    author = Column(String(250), nullable=False)
-    description = Column(String(250))
+    name = Column(String(64), nullable=False)
+    author = Column(String(64), nullable=False)
+    description = Column(String(1024))
     cover = Column(String(250))
     genre_id = Column(Integer, ForeignKey('genre.id'))
     genre = relationship(Genre)

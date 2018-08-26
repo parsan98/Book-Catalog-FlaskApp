@@ -1,0 +1,80 @@
+body {
+  font-size: ;
+}
+
+header {
+  height: 200px;
+  width: 100%;
+}
+
+.header-img {
+  width: 100px;
+  height: 100px;
+  margin: 5px auto 0px auto;
+  display: block;
+}
+
+.main-title {
+  padding: 10px;
+}
+
+.main-nav {
+  padding: 10px;
+}
+
+hr {
+  display: block;
+  border-style: inset;
+  border-width: 2px;
+  width: 100%;
+}
+
+.list {
+  display: block;
+}
+
+.list-item {
+  padding: 10px;
+  display: inline-flex;
+  flex-flow: wrap;
+}
+
+.genre-pic {
+  height: 200px;
+  width: 200px;
+}
+
+.item-link {}
+
+.small {
+  width: 50px;
+  height: 50px;
+}
+
+.big {
+  width: 100px;
+  height: 100px;
+}
+
+.icon {
+  radius: 50%;
+  margin: 5px;
+}
+
+.book-cover {
+  height: 400px;
+  width: 300px;
+}
+
+.para {
+  width: 70%;
+  margin: 5px auto 5px auto;
+}
+
+footer {
+  width: 100%
+  text-align: center;
+  position: absolute;
+  bottom: 10px;
+  left: 0px;
+}

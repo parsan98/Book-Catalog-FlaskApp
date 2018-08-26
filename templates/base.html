@@ -2,35 +2,18 @@
 <html lang="en">
 <head>
   <title>Catalog</title>
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
 
-  <header>
-    <img src="http://tienganh247.com.vn/wp-content/uploads/2016/07/tai-lieu-ngu-phap-tieng-anh-khong-the-thieu.jpg"
-         width=100px
-         height=100px
-         float="right"
-         alt="Books image">
-    <h1> A Catalog of Books </h1>
-    <nav>
-      <a> Login </a>
-      <a> Logout </a>
-      <a href="{{url_for('addBook')}}"> Add a book </a>
-    </nav>
-  </header>
+  {% include "header.html" %}
 
   <div id="content">
     {% block content %}
     {% endblock %}
   </div>
 
-  <footer>
-    <hr>
-    &copy; Copyright
-      <script>
-        document.write(new Date().getFullYear());
-      </script>
-  </footer>
+  {% include "footer.html" %}
 
 </body>
 </html>
