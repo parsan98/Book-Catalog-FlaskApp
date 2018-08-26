@@ -1,6 +1,13 @@
-from flask import Flask, render_template, url_for
-from flask import request, redirect, jsonify, make_response
-from flask import session as login_session
+from flask import (
+    Flask,
+    render_template,
+    url_for,
+    request,
+    redirect,
+    jsonify,
+    make_response,
+    session as login_session
+    )
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, User, Genre, Book
@@ -333,12 +340,13 @@ def showAllGenresJSON():
 
 @app.route('/genre/<int:genre_id>/JSON/')
 def showGenreItemsJSON(genre_id):
-    books = session.query(Book).filter_by(genre_id=genre_id)
+    genre = session.query(Genre).filter_by(id=genre_id).one()
+    books = session.query(Book).filter_by(genre=genre).all()
     return jsonify(books=[x.serialize for x in books])
 
 
 @app.route('/book/<int:book_id>/JSON/')
-def showGenreItemsJSON(book_id):
+def showBookItemJSON(book_id):
     book = session.query(Book).filter_by(id=book_id).one()
     return jsonify(book=book.serialize)
 

@@ -42,6 +42,18 @@ This is a web application with CRUD functions which uses Google Oauth2 Login for
 * Run ```python database_init.py``` on the terminal to populate the database with values. Notice that once this is done, a message gets printed on the terminal saying that the database has been initialized.
 * Run ```python application.py``` to run the app - the app runs on <https://localhost:5000>
 
+
+
+### JSON Endpoints:
+
+To access the JSON endpoints:
+
+* Use the URL <https://localhost:5000/JSON> to access the list of all genres with their details.
+* Use the URL <https://localhost:5000/genre/1/JSON> replacing 1 with the id of any genre you wish to see to access all the books of that genre.
+* Use the URL <https://localhost:5000/book/1/JSON replacing 1 with the id of the book you wish to see to access all the details of that book.
+
+
+
 ## Features
 
 * Web Application written in Python
