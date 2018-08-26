@@ -5,11 +5,12 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
+
 # Users table
 class User(Base):
     __tablename__ = 'user'
 
-    #Columns of User
+    # Columns of User
     id = Column(Integer, primary_key=True)
     name = Column(String(64), nullable=False)
     email = Column(String(250), nullable=False)
@@ -18,10 +19,10 @@ class User(Base):
     @property
     def serialize(self):
         return {
-            'id' : self.id,
-            'name' : self.name,
-            'email' : self.email,
-            'picture' : self.picture
+            'id': self.id,
+            'name': self.name,
+            'email': self.email,
+            'picture': self.picture
         }
 
 
@@ -29,7 +30,7 @@ class User(Base):
 class Genre(Base):
     __tablename__ = 'genre'
 
-    #Columns of Genre
+    # Columns of Genre
     id = Column(Integer, primary_key=True)
     name = Column(String(32), nullable=False)
     icon = Column(String(250))
@@ -37,9 +38,9 @@ class Genre(Base):
     @property
     def serialize(self):
         return {
-            'id' : self.id,
-            'name' : self.name,
-            'icon' : self.icon
+            'id': self.id,
+            'name': self.name,
+            'icon': self.icon
         }
 
 
@@ -47,7 +48,7 @@ class Genre(Base):
 class Book(Base):
     __tablename__ = 'book'
 
-    #Columns of Books
+    # Columns of Books
     id = Column(Integer, primary_key=True)
     name = Column(String(64), nullable=False)
     author = Column(String(64), nullable=False)
@@ -61,13 +62,13 @@ class Book(Base):
     @property
     def serialize(self):
         return {
-            'id' : self.id,
-            'name' : self.name,
-            'author' : self.author,
-            'description' : self.description,
-            'cover' : self.cover,
-            'genre' : self.genre.name,
-            'user' : self.user.name
+            'id': self.id,
+            'name': self.name,
+            'author': self.author,
+            'description': self.description,
+            'cover': self.cover,
+            'genre': self.genre.name,
+            'user': self.user.name
         }
 
 
