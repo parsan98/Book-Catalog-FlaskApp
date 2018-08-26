@@ -1,17 +1,17 @@
-body {
-  font-size: ;
+div {
+  padding: 20px;
 }
 
-header {
-  height: 200px;
+footer {
   width: 100%;
+  display: block;
+  padding-bottom: 20px;
 }
 
 .header-img {
-  width: 100px;
-  height: 100px;
-  margin: 5px auto 0px auto;
-  display: block;
+  width: 250px;
+  height: 250px;
+  margin: 5px;
 }
 
 .main-title {
@@ -22,21 +22,11 @@ header {
   padding: 10px;
 }
 
-hr {
-  display: block;
-  border-style: inset;
-  border-width: 2px;
-  width: 100%;
-}
-
-.list {
-  display: block;
-}
+.list {}
 
 .list-item {
   padding: 10px;
-  display: inline-flex;
-  flex-flow: wrap;
+  font-size: 16px;
 }
 
 .genre-pic {
@@ -44,11 +34,15 @@ hr {
   width: 200px;
 }
 
-.item-link {}
+.item-link {
+  font-size: 18px;
+}
 
 .small {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
+  margin: 5px;
+  vertical-align: middle;
 }
 
 .big {
@@ -56,25 +50,13 @@ hr {
   height: 100px;
 }
 
-.icon {
-  radius: 50%;
-  margin: 5px;
-}
-
 .book-cover {
   height: 400px;
   width: 300px;
+  margin: 10px;
 }
 
 .para {
   width: 70%;
   margin: 5px auto 5px auto;
-}
-
-footer {
-  width: 100%
-  text-align: center;
-  position: absolute;
-  bottom: 10px;
-  left: 0px;
 }

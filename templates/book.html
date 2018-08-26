@@ -18,9 +18,9 @@
   <br>
   <br>
   {% if (isCreator) %}
-  <a href="/book/{{book.id}}/edit/"> Edit this book </a>
+  <a class="btn btn-block btn-primary" href="/book/{{book.id}}/edit/"> Edit this book </a>
   <br>
-  <a href="/book/{{book.id}}/delete/"> Delete this book </a>
+  <a class="btn btn-block btn-danger" href="/book/{{book.id}}/delete/"> Delete this book </a>
   {% endif %}
 
 {% endblock %}

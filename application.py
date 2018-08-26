@@ -145,9 +145,7 @@ def gdisconnect():
 	    del login_session['username']
 	    del login_session['email']
 	    del login_session['picture']
-	    response = make_response(json.dumps('Successfully disconnected.'), 200)
-	    response.headers['Content-Type'] = 'application/json'
-	    return response
+	    return redirect(url_for('showAllGenres', private=False))
     else:
 	    # Invalid token
 	    response = make_response(json.dumps('Failed to revoke token for given user.', 400))
@@ -166,7 +164,7 @@ def showAllGenres():
     if 'username' not in login_session:
         return render_template('allGenres.html', genres=genres, private=False)
     else:
-        return render_template('allGenres.html', genres=genres, private=True)
+        return render_template('allGenres.html', genres=genres, private=True, picture=login_session['picture'])
 
 
 @app.route('/genre/<int:genre_id>/')
@@ -177,7 +175,7 @@ def showGenreItems(genre_id):
     if 'username' not in login_session:
         return render_template('allBooks.html', genre=genre, books=books, private=False)
     else:
-        return render_template('allBooks.html', genre=genre, books=books, private=True)
+        return render_template('allBooks.html', genre=genre, books=books, private=True, picture=login_session['picture'])
 
 
 @app.route('/book/<int:book_id>/')
@@ -190,9 +188,9 @@ def showBook(book_id):
         return render_template('book.html', book=book, genre=genre, creator=creator, private=False, isCreator=False)
     else:
         if (login_session['username'] == creator.name):
-            return render_template('book.html', book=book, genre=genre, creator=creator, private=True, isCreator=true)
+            return render_template('book.html', book=book, genre=genre, creator=creator, private=True, picture=login_session['picture'], isCreator=True)
         else:
-            return render_template('book.html', book=book, genre=genre, creator=creator, private=True, isCreator=false)
+            return render_template('book.html', book=book, genre=genre, creator=creator, private=True, picture=login_session['picture'], isCreator=False)
 
 
 @app.route('/book/new/', methods=['GET', 'POST'])
@@ -212,9 +210,9 @@ def addBook():
                         user=user)
         session.add(book)
         session.commit()
-        return redirect(url_for('showGenreItems', genre_id=genre.id, private=True))
+        return redirect(url_for('showGenreItems', genre_id=genre.id, private=True, picture=login_session['picture']))
     else:
-        return render_template('createBook.html', private=True)
+        return render_template('createBook.html', private=True, picture=login_session['picture'])
 
 
 @app.route('/book/<int:book_id>/edit/', methods=['GET', 'POST'])
@@ -233,9 +231,9 @@ def editBook(book_id):
         book.description = '{}'.format(request.form['description'])
         book.genre = session.query(Genre).filter_by(id=request.form['genre']).one()
         book.cover = request.form['cover']
-        return redirect(url_for('showBook', book_id=book.id, private=True))
+        return redirect(url_for('showBook', book_id=book.id, private=True, picture=login_session['picture']))
     else:
-        return render_template('editBook.html', book=book, genre=genre, creator=creator, private=True)
+        return render_template('editBook.html', book=book, genre=genre, creator=creator, private=True, picture=login_session['picture'])
 
 
 @app.route('/book/<int:book_id>/delete/', methods=['GET', 'POST'])
@@ -246,14 +244,14 @@ def deleteBook(book_id):
     if 'username' not in login_session:
         return redirect(url_for('showLogin', private=False))
     if book.user_id != login_session['user_id']:
-        return redirect(url_for('showBook', private=True))
+        return redirect(url_for('showBook', private=True, picture=login_session['picture']))
     if request.method == 'POST':
         # Delete function
         session.delete(book)
         session.commit()
-        return redirect(url_for('showAllGenres', private=True))
+        return redirect(url_for('showAllGenres', private=True, picture=login_session['picture']))
     else:
-        return render_template('deleteBook.html', book=book, creator=creator, private=True)
+        return render_template('deleteBook.html', book=book, creator=creator, private=True, picture=login_session['picture'])
 
 
 

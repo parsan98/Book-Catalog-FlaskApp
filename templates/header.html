@@ -1,16 +1,19 @@
 <header>
+  <a href="{{url_for('showAllGenres')}}">
   <img src="http://tienganh247.com.vn/wp-content/uploads/2016/07/tai-lieu-ngu-phap-tieng-anh-khong-the-thieu.jpg"
        class="header-img"
        alt="Books image">
+  </a>
   <h1 class="main-title"> A Catalog of Books </h1>
   <nav class="main-nav">
     {% if (private) %}
-    <img class="small icon" src="{{ login_session['picture'] }}" alt="logged in">
-    <a class="private" href="{{url_for('addBook')}}"> Add a book </a>
-    <a class="private" href="{{url_for('gdisconnect')}}"> Logout </a>
+    <img class="header-icon small" src="{{picture}}" alt="logged in">
+    <br>
+    <a class="btn btn-success btn-block" href="{{url_for('addBook')}}"> Add a book </a>
+    <a class="btn btn-primary btn-block" href="{{url_for('gdisconnect')}}"> Logout </a>
     {% else %}
-    <a class="public" href="{{url_for('showLogin')}}"> Login </a>
+    <a class="btn btn-primary  btn-block" href="{{url_for('showLogin')}}"> Login </a>
     {% endif %}
   </nav>
   <hr>
-<header>
+</header>
